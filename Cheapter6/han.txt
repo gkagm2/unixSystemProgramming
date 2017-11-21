@@ -1,0 +1,2 @@
+jmaster  20356 20355  0 11:55 pts/2    00:00:00 sh -c ps -ef | grep han > han.txt
+jmaster  20358 20356  0 11:55 pts/2    00:00:00 grep han
