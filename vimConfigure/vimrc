@@ -1,0 +1,132 @@
+"---------------------------------------------------------------------------------------
+" vim È¯?æ¼³Á¤
+"   Linux Sour Code ?Ð¼? ???? ??Á¤ ????
+" 	2012.12.10 kskong
+" 
+"  2014.09.29: ?âº»???? Á¤??
+"---------------------------------------------------------------------------------------
+
+"---------------------------------------------------------------------------------------
+" vim ?âº» ???? ??Á¤
+"---------------------------------------------------------------------------------------
+	set mouse=a
+    set smarttab			"tab ??Á¤ ???? (ts, sw, sts) enable
+    set cindent				"C program ?? ?é¿©???? È°??È­
+	set nu					"line number Ç¥??
+    set ai					"auto indent
+	set ruler				"È­?é³» Ä¿???? À§Ä¡ Ç¥??
+    set ts=4				"tab stop ('\t' Ä­ ?? ??Á¤)
+    set sw=4				"shiftwidth (>> ?Ç´? << Å° ?? ??????) 
+	set sts=4				"softtabstop (Tab Å°?? Ç¥?? ???? ??Á¤)
+    set bg=dark				"background color
+	"set fencs=ucs-bom,utf-8,euc-kr.latin1
+	"set fileencoding=euc-kr
+	set fileencodings=utf-8,euc-kr,cp949
+    syntax on				"syntax highlighting
+"---------------------------------------------------------------------------------------
+" additional settings
+"---------------------------------------------------------------------------------------
+" 
+if version >= 500
+
+if has("unix")
+	set t_Co=8
+	set t_AF=[3%p1%dm
+	set t_AB=[4%p1%dm
+endif
+
+let c_comment_strings=1		" highlighting C comments strings
+
+hi Todo term=standout ctermfg=Yellow ctermbg=DarkBlue
+
+" change 
+hi PreProc term=standout ctermfg=Yellow  ctermbg=DarkBlue
+
+endif
+
+if version >= 503
+set fileencoding=korea
+endif
+
+
+" add new key maps
+nmap ? :redo
+
+" au BufNewFile,BufReadPost *.txt so ~/lib/vim/txt.vim
+au BufNewFile,BufReadPost *.c,*.h set cindent
+au BufNewFile,BufReadPost *.cpp,*.cc set cindent
+au BufNewFile,BufReadPost *.java set cindent
+au BufNewFile,BufReadPost *.tex set autoindent
+au BufNewFile,BufReadPost *.html,*.htm set smartindent
+
+"---------------------------------------------------------------------------------------
+" ctags database path ??Á¤
+"---------------------------------------------------------------------------------------
+    set tags=./tags,tags 	"ctags DBÀ§Ä¡
+    "set tags=./tags,tags,/usr/src/linux-2.6.30.4/tags 	"ctags DBÀ§Ä¡
+    "set tags=./tags,tags,/u1/prof/kskong/linux/src/linux-2.6.30.4/tags
+
+
+"---------------------------------------------------------------------------------------
+" cscope database path ??Á¤
+"---------------------------------------------------------------------------------------
+    set csprg=/usr/local/bin/cscope						"cscope À§Ä¡
+    set csto=0											"cscope DB search first
+    set cst												"cscope DB tag DB search
+    set nocsverb										"verbose off
+	"cscope DB?? À§Ä¡??Á¤, ???????? ????
+	"cs add /u1/prof/kskong/advprog2015/smallsh/cscope.out
+    "cs add /u1/prof/kskong/lecture/2013/os/pintos/src/cscope.out /u1/prof/kskong/lecture/2013/os/pintos/src
+    "cs add /usr/src/linux-2.6.30.4/cscope.out /usr/src/linux-2.6.30.4
+    "cs add /u1/prof/kskong/advprog2015/smallsh/cscope.out
+    "cs add /u1/prof/kskong/linux/src/linux-2.6.30.4/cscope.out /u1/prof/kskong/linux/src/linux-2.6.30.4
+    set csverb											"verbose on
+
+"---------------------------------------------------------------------------------------
+" Tag List È¯?æ¼³Á¤ 2012.12.08
+" nmap : normal mode key mapping
+" Function Key?? ???ÎµÇ°? ?Ï·Á¸? È¯?æº¯?? TERM?? xtermÀ¸?? ??Á¤?Å¾???
+" putty???? Terminal --> Keyboard --> Function Key ???? Xterm R6?? ??Á¤??
+"---------------------------------------------------------------------------------------
+    filetype on											"vim filetype on
+    nmap <F7> :TlistToggle<CR>							"F7 Key = Tag List Toggling
+    "map ,7 :TlistToggle<CR>
+    let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"		"ctags ?Á·Î±×·? À§Ä¡
+    let Tlist_Inc_Winwidth = 0							"window width change off
+    let Tlist_Exit_OnlyWindow = 0						"tag/file ???? ?Ï·? ?? taglist
+														"window close = off
+    let Tlist_Auto_Open = 0								"vim ???? ?? window open = off
+    let Tlist_Use_Right_Window = 1						"Tag List À§Ä¡ = ?À¸???
+
+"---------------------------------------------------------------------------------------
+" Source Explorer È¯?æ¼³Á¤
+"---------------------------------------------------------------------------------------
+    nmap <F8> :SrcExplToggle<CR>						"F8 Key = SrcExpl Toggling
+    "map ,8 :SrcExplToggle<CR>
+    nmap <C-H> <C-W>h									"???? Ã¢À¸?? ?Ìµ?
+    nmap <C-J> <C-W>j									"?Ï´?(preview) Ã¢À¸?? ?Ìµ?
+    nmap <C-K> <C-W>k									"????  Ã¢À¸?? ?Ìµ?
+    nmap <C-L> <C-W>l									"?À¸??? Ã¢À¸?? ?Ìµ?
+
+    let g:SrcExpl_winHeight = 8							"SrcExpl À©???? ???? ??Á¤
+    let g:SrcExpl_refreshTime = 100						"refreshing time = 100ms
+    let g:SrcExpl_jumpKey = "<ENTER>"					"?Ø´? definitionÀ¸?? jump
+    let g:SrcExpl_gobackKey = "<SPACE>"					"back
+    let g:SrcExpl_isUpdateTags = 0						"tag file update = off
+
+"---------------------------------------------------------------------------------------
+" NERD Tree È¯?æ¼³Á¤
+"---------------------------------------------------------------------------------------
+    let NERDTreeWinPos = "left"							"NERD TreeÀ§Ä¡ = ????
+    nmap <F9> :NERDTreeToggle<CR>						"F9 Key = NERD Tree Toggling
+    "map ,9 :NERDTreeToggle<CR>							"
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+	Plugin 'gmarik/Vundle.vim'
+	Plugin 'https://github.com/vim-scripts/AutoComplPop'
+	call vundle#end()
+
+	filetype plugin indent on
+	filetype plugin on
+	
